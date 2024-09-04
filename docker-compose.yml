@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  mysql-mymake:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: "MymakeRoot"
+      MYSQL_PASSWORD: "MymakePwd"
+      MYSQL_USER: "UserMymake"
+      MYSQL_DATABASE: "mymake"
+    ports:
+      - "3306:3306"
+    volumes:
+      - .docker/dbdata:/var/lib/mysql
+
