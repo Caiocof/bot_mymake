@@ -28,6 +28,14 @@ def get_sale_confirm_keyboard():
     return markup
 
 
+def add_new_item_keyboard():
+    markup = InlineKeyboardMarkup(row_width=2)
+    markup.add(
+        InlineKeyboardButton("Sim", callback_data="new_item:yes"),
+        InlineKeyboardButton("Não", callback_data="new_item:no"))
+    return markup
+
+
 def get_payment_keyboard():
     markup = InlineKeyboardMarkup(row_width=2)
     markup.add(

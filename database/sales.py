@@ -17,19 +17,31 @@ def search_invoices_due():
 def new_sale(data: dict):
     session = SessionLocal()
     try:
-        product_id = data['product_id']
-        product = get_product(product_id)
+        new_data = [
+            {'product_id': item['product_id'],
+             'quantity': item['quantity'],
+             'client_name': data['client_name'],
+             'payment_type': data['payment_type']}
+            for item in data['items']
+        ]
 
-        sale = Sale(**data)
-        sale.value = product.sale_price
+        with session.begin():
+            for item in new_data:
+                product_id = item['product_id']
+                product = get_product(product_id)
 
-        session.add(sale)
-        session.commit()
+                sale = Sale(**item)
+                sale.value = product.sale_price
+                session.add(sale)
 
-        new_quantity = product.quantity - data['quantity']
-        update_product(product_id, quantity=new_quantity)
+                new_quantity = product.quantity - item['quantity']
+                update_product(product_id, quantity=new_quantity)
+
+            session.commit()
+
     except Exception as e:
         session.rollback()
-        raise Exception(f'<b>❌Erro ao registrar vendas: {e}</b>')
+        raise Exception(f'<b>❌DB Erro: {e}</b>')
+
     finally:
         session.close()

@@ -36,6 +36,6 @@ def callback_handler(call):
         get_receivable(call, menu_button)
 
 
-def start_script():
+if __name__ == '__main__':
     print(f"Start bot")
     BOT.infinity_polling()

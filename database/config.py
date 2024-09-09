@@ -5,7 +5,8 @@ from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 from sqlalchemy.sql import func
 
 # Configurações de conexão MySQL
-DATABASE_URL = f'postgresql://{os.getenv("MYSQL_USER")}:{os.getenv("MYSQL_PASSWORD")}@{os.getenv("MYSQL_HOST")}/{os.getenv("MYSQL_DB")}?sslmode=require'
+# DATABASE_URL = f'postgresql://{os.getenv("MYSQL_USER")}:{os.getenv("MYSQL_PASSWORD")}@{os.getenv("MYSQL_HOST")}/{os.getenv("MYSQL_DB")}?sslmode=require'
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 # Criando a engine e a base declarativa
 engine = create_engine(DATABASE_URL, echo=True)

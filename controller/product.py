@@ -128,6 +128,7 @@ def check_quantity(product_id, quantity_sale):
         return "<b>❌Produto não encontrado.</b>"
     elif product.quantity < quantity_sale:
         return (f"<b>❌Quantidade em estoque é insuficiente:</b>\n"
+                f"<b>Código:</b> <code>{product.id}</code>\n"
                 f"<b>Produto:</b> <code>{product.name}</code>\n"
                 f"<b>Quantidade disponível:</b> <code>{product.quantity}</code>\n\n")
     return product
