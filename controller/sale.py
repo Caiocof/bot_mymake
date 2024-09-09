@@ -135,9 +135,6 @@ def get_product_code(message, menu_button):
         if not product:
             raise Exception("Produto não encontrado.")
 
-        # if user_id not in SALE_CONTEXT:
-        #     SALE_CONTEXT[user_id] = {'items': []}
-
         SALE_CONTEXT[user_id]['items'].append({
             "product_id": product_id,
             "product_name": product.name,
