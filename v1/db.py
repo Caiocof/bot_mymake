@@ -1,6 +1,6 @@
 import sqlite3
 
-from utils import truncate_text
+from utils.utils import truncate_text
 
 
 def create_connection():
