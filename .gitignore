@@ -3,3 +3,5 @@ ideias.txt
 infos.txt
 .env
 .docker
+v1
+*__pycache__
