@@ -1,3 +1,5 @@
+import os
+
 from bot_config import BOT
 from controller.product import get_product_name
 from controller.receivable import get_receivable
@@ -35,5 +37,6 @@ def callback_handler(call):
 
 
 if __name__ == '__main__':
-    print("Start bot")
+    PORT = int(os.environ.get('PORT', '8080'))
+    print(f"Start bot in port {PORT}")
     BOT.infinity_polling()
