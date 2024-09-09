@@ -1,4 +1,5 @@
 *.db
-*.txt
+ideias.txt
+infos.txt
 .env
 .docker
