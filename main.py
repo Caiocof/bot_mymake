@@ -1,30 +1,26 @@
-import os
-import threading
-import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 import telebot
 
-from start_boot import start_script
+from bot_config import BOT
 
 app = FastAPI()
 
 
+@app.post("/webhook")
+async def telegram_webhook(request: Request):
+    json_str = await request.json()
+    update = telebot.types.Update.de_json(json_str)
+    BOT.process_new_updates([update])
+    return {"status": "ok"}
+
+
+@app.on_event("startup")
+async def on_startup():
+    webhook_url = f"https://https://telegram-chat-tn5z.onrender.com/webhook"
+    BOT.remove_webhook()
+    BOT.set_webhook(url=webhook_url)
+
+
 @app.get("/")
 def read_root():
-    return {"message": "Hello from FastAPI"}
-
-
-def start_fastapi():
-    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
-
-
-if __name__ == "__main__":
-    # Inicia o FastAPI e o bot do Telegram em threads separadas
-    fastapi_thread = threading.Thread(target=start_fastapi)
-    bot_thread = threading.Thread(target=start_script)
-
-    fastapi_thread.start()
-    bot_thread.start()
-
-    fastapi_thread.join()
-    bot_thread.join()
+    return {"message": "Hello from FastAPI and Telegram bot webhook!"}
