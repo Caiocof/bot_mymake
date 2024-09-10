@@ -1,19 +1,15 @@
-import os
-import uvicorn
-from fastapi import FastAPI
+from typing import Optional
 
-from start_boot import start_script
+from fastapi import FastAPI
 
 app = FastAPI()
 
-start_script()
-
 
 @app.get("/")
-def read_root():
-    return {"message": "Hello, Render!"}
+async def root():
+    return {"message": "Hello World"}
 
 
-if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 4000))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Optional[str] = None):
+    return {"item_id": item_id, "q": q}
