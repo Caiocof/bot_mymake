@@ -2,7 +2,11 @@ from typing import Optional
 
 from fastapi import FastAPI
 
+from start_boot import start_script
+
 app = FastAPI()
+
+start_script()
 
 
 @app.get("/")
